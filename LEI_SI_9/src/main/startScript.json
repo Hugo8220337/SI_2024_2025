@@ -1,0 +1,11 @@
+{
+  "escola": "exampleEscola",
+  "morada": "exampleMorada",
+  "email": "exampleEmail",
+  "telefone": "exampleTelefone",
+  "cidade": "exampleCidade",
+  "detalhes": "exampleDetalhes",
+  "segmento": "publico",
+  "historicoInteracoes": "exampleHistoricoInteracoes",
+  "codigoPostal": "exampleCodigoPostal"
+}
