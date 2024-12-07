@@ -1,17 +1,25 @@
 package ipp.estg.grupo9;
 
+import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.Variable;
 import ipp.estg.grupo9.models.Email;
+import ipp.estg.grupo9.models.EquipaVendas;
 import ipp.estg.grupo9.models.Escola;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Component
-public class CaptarClienteWorker {
-    ArrayList<Escola> escolas = new ArrayList<>();
+public class CaptarClienteWorker implements CommandLineRunner {
+    @Autowired
+    private ZeebeClient zeebeClient;
+
+    private final ArrayList<Escola> escolas = new ArrayList<>();
+    private final EquipaVendas equipaVendas = new EquipaVendas();
 
     @JobWorker(type = "DB_Import", autoComplete = true)
     public HashMap<String, Object> importarDadosPotencialCliente(@Variable String escola, @Variable String morada, @Variable String email, @Variable String telefone, @Variable String cidade, @Variable String detalhes, @Variable String segmento, @Variable String historicoInteracoes, @Variable String codigoPostal) {
@@ -31,18 +39,23 @@ public class CaptarClienteWorker {
         String historicoInteracoesCliente = String.valueOf(historicoInteracoes);
         String codigoPostalCliente = String.valueOf(codigoPostal);
 
-        HashMap<String, Object> var = new HashMap<>();
-        var.put("ID", id);
-        var.put("escola", escolaCliente);
-        var.put("morada", moradaCliente);
-        var.put("email", emailCliente);
-        var.put("telefone", telefoneCliente);
-        var.put("cidade", cidadeCliente);
-        var.put("detalhes", detalhesCliente);
-        var.put("segmento", segmentoCliente);
-        var.put("historicoInteracoes", historicoInteracoesCliente);
-        var.put("codigoPostal", codigoPostalCliente);
-        return var;
+        HashMap<String, Object> variables = new HashMap<>();
+        variables.put("Id", id);
+        variables.put("escola", escolaCliente);
+        variables.put("morada", moradaCliente);
+        variables.put("email", emailCliente);
+        variables.put("telefone", telefoneCliente);
+        variables.put("cidade", cidadeCliente);
+        variables.put("detalhes", detalhesCliente);
+        variables.put("segmento", segmentoCliente);
+        variables.put("historicoInteracoes", historicoInteracoesCliente);
+        variables.put("codigoPostal", codigoPostalCliente);
+
+        // variável que será futuramente usada para verificar se o formulário foi recebido
+        variables.put("formularioRecebido", "sim");
+
+
+        return variables;
     }
 
     @JobWorker(type = "DB_Save", autoComplete = true)
@@ -63,18 +76,18 @@ public class CaptarClienteWorker {
         String historicoInteracoesCliente = String.valueOf(historicoInteracoes);
         String codigoPostalCliente = String.valueOf(codigoPostal);
 
-        HashMap<String, Object> var = new HashMap<>();
-        var.put("ID", id);
-        var.put("escola", escolaCliente);
-        var.put("morada", moradaCliente);
-        var.put("email", emailCliente);
-        var.put("telefone", telefoneCliente);
-        var.put("cidade", cidadeCliente);
-        var.put("detalhes", detalhesCliente);
-        var.put("segmento", segmentoCliente);
-        var.put("historicoInteracoes", historicoInteracoesCliente);
-        var.put("codigoPostal", codigoPostalCliente);
-        return var;
+        HashMap<String, Object> variables = new HashMap<>();
+        variables.put("Id", id);
+        variables.put("escola", escolaCliente);
+        variables.put("morada", moradaCliente);
+        variables.put("email", emailCliente);
+        variables.put("telefone", telefoneCliente);
+        variables.put("cidade", cidadeCliente);
+        variables.put("detalhes", detalhesCliente);
+        variables.put("segmento", segmentoCliente);
+        variables.put("historicoInteracoes", historicoInteracoesCliente);
+        variables.put("codigoPostal", codigoPostalCliente);
+        return variables;
 
 
 //        Escola.removeCount(); // count = count - 1
@@ -113,4 +126,55 @@ public class CaptarClienteWorker {
         });
     }
 
+    @JobWorker(type = "SendForm", autoComplete = true)
+    public void enviarFormulario(@Variable String escola, @Variable String email) {
+        System.out.println("Send Form service task");
+
+        // simular envio de formulário por email
+        String mensagemFormulario = "Olá, " + escola +
+                " porque nos detesta? O que nós lhe fizemos? Por favor, preencha este formulário.";
+        escolas.forEach(escola1 -> {
+            if (escola1.getNome().equals(escola)) {
+                escola1.getEmails().add(new Email(email, "Formulário de satisfação", mensagemFormulario));
+            }
+        });
+
+
+        // Simular envio do formulário por email
+        System.out.println("Formulario enviado para: " + email);
+
+        // Mandar mensagems para a receive task
+        zeebeClient.newPublishMessageCommand()
+                .messageName("Message_Resposta_Cliente") // Nome da mensagem
+                .correlationKey("sim")   // Correlation key
+                .variables("{\"status\": \"Formulário enviado\"}") // Variáveis adicionais
+                .send()
+                .join();
+    }
+
+    @JobWorker(type = "Notificar_Equipa_vendas", autoComplete = true)
+    public void notificarEquipaVendas(@Variable String escola, @Variable String email, @Variable String tipoReuniao, @Variable String dataReuniao, @Variable String horaReuniao) {
+        System.out.println("Notificar Equipa de Vendas");
+
+        Email emailToSend = new Email(email, "Novo cliente", "Olá, " + escola + " é um novo cliente, foi marcada uma reunião " + tipoReuniao + " para a data " + dataReuniao + " às " + horaReuniao);
+        equipaVendas.sendEmail(emailToSend);
+    }
+
+
+    // Simulate the form received
+    @Override
+    public void run(String... args) {
+        System.out.println("CaptarClienteWorker is running");
+
+        final HashMap<String, Object> variables = new HashMap<>();
+        variables.put("clienteInteressado", "sim");
+
+        zeebeClient.newPublishMessageCommand()
+                .messageName("Message_Resposta_Cliente")
+                .correlationKey("sim")
+                .variables(variables)
+                .send()
+                .join();
+
+    }
 }
