@@ -23,7 +23,12 @@ public class RepositorioEquipaIntegracao implements IEquipaIntegracaoRepository 
     @Override
     public void sendEmail(Email email) throws CannotWritetoFileException {
         EquipaVendas equipaVendas = fileUtils.readObjectFromFile();
-        equipaVendas.getEmails().add(email);
+
+        if(equipaVendas == null) {
+            equipaVendas = new EquipaVendas();
+        }
+
+        equipaVendas.sendEmail(email);
         fileUtils.writeObjectToFile(equipaVendas);
     }
 }

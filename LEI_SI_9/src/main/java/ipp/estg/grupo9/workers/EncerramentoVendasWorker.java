@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @Component
-public class FecharVendasWorker implements CommandLineRunner  {
-    private static final AppLogger LOGGER = AppLogger.getLogger(FecharVendasWorker.class);
+public class EncerramentoVendasWorker implements CommandLineRunner  {
+    private static final AppLogger LOGGER = AppLogger.getLogger(EncerramentoVendasWorker.class);
 
     @Autowired
     private ZeebeClient zeebeClient;

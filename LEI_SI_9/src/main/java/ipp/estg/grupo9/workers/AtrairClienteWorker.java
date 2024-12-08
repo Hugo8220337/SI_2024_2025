@@ -75,7 +75,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         LOGGER.info("Guardar cliente para campanhas futuras começou");
 
         Escola cliente = new Escola(escola, morada, email, telefone, cidade, detalhes, segmento, historicoInteracoes, codigoPostal);
-        ;
+
         try {
             escolaRepository.add(cliente);
             LOGGER.info("Cliente guardado na base de dados");
