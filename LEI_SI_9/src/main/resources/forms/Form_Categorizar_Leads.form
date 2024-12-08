@@ -1,1 +1,149 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"f210d35"},"schemaVersion":17,"id":"Form_Categorizar_Leads","components":[{"text":"# Categorização de Leads","type":"text","layout":{"row":"Row_16h7ry8","columns":null},"id":"Field_10kfofq"},{"label":"Nome da Escola","type":"textfield","layout":{"row":"Row_0lztqi3","columns":null},"id":"Field_0ukemxz","key":"escola","disabled":true,"description":"Insira o nome da escola ou agrupamento de escolas interessado"},{"label":"Email","type":"textfield","layout":{"row":"Row_0s24jrl","columns":null},"id":"Field_01jstea","key":"email","disabled":true},{"label":"Telefone","type":"textfield","layout":{"row":"Row_0s24jrl","columns":null},"id":"Field_1ppt4v6","key":"telefone","disabled":true},{"label":"Cidade","type":"textfield","layout":{"row":"Row_1930fuu","columns":null},"id":"Field_1m84qn8","key":"cidade","disabled":true},{"label":"Morada","type":"textfield","layout":{"row":"Row_1930fuu","columns":null},"id":"Field_0b9kb9e","key":"morada","disabled":true},{"label":"Segmento","values":[{"label":"Pública","value":"publica"},{"label":"Privada","value":"privada"}],"type":"radio","layout":{"row":"Row_0iezidt","columns":null},"id":"Field_0u12wjy","key":"segmento","disabled":true},{"label":"Detalhes","type":"textarea","layout":{"row":"Row_0iezidt","columns":null},"id":"Field_0z2nwx6","key":"detalhes","disabled":true},{"label":"Histórico de Interações","type":"textarea","layout":{"row":"Row_08kv232","columns":null},"id":"Field_105kxve","key":"historicoInteracoes","disabled":true},{"label":"Categorização","values":[{"label":"Frio","value":"frio"},{"label":"Morno","value":"morno"},{"label":"Quente","value":"quente"}],"type":"radio","layout":{"row":"Row_08cj2ed","columns":null},"id":"Field_066trdj","key":"categoriazacao","validate":{"required":true}}],"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "Form_Categorizar_Leads",
+  "components": [
+    {
+      "text": "# Categorização de Leads",
+      "type": "text",
+      "layout": {
+        "row": "Row_16h7ry8",
+        "columns": null
+      },
+      "id": "Field_10kfofq"
+    },
+    {
+      "label": "Nome da Escola",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0lztqi3",
+        "columns": null
+      },
+      "id": "Field_0ukemxz",
+      "key": "escola",
+      "disabled": true,
+      "description": "Insira o nome da escola ou agrupamento de escolas interessado"
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0s24jrl",
+        "columns": null
+      },
+      "id": "Field_01jstea",
+      "key": "email",
+      "disabled": true
+    },
+    {
+      "label": "Telefone",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0s24jrl",
+        "columns": null
+      },
+      "id": "Field_1ppt4v6",
+      "key": "telefone",
+      "disabled": true
+    },
+    {
+      "label": "Cidade",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1930fuu",
+        "columns": null
+      },
+      "id": "Field_1m84qn8",
+      "key": "cidade",
+      "disabled": true
+    },
+    {
+      "label": "Morada",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1930fuu",
+        "columns": null
+      },
+      "id": "Field_0b9kb9e",
+      "key": "morada",
+      "disabled": true
+    },
+    {
+      "label": "Segmento",
+      "values": [
+        {
+          "label": "Pública",
+          "value": "publico"
+        },
+        {
+          "label": "Privada",
+          "value": "privado"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_0iezidt",
+        "columns": null
+      },
+      "id": "Field_0u12wjy",
+      "key": "segmento",
+      "disabled": true,
+      "defaultValue": "publica"
+    },
+    {
+      "label": "Detalhes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0iezidt",
+        "columns": null
+      },
+      "id": "Field_0z2nwx6",
+      "key": "detalhes",
+      "disabled": true
+    },
+    {
+      "label": "Histórico de Interações",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_08kv232",
+        "columns": null
+      },
+      "id": "Field_105kxve",
+      "key": "historicoInteracoes",
+      "disabled": true
+    },
+    {
+      "label": "Categorização",
+      "values": [
+        {
+          "label": "Frio",
+          "value": "frio"
+        },
+        {
+          "label": "Morno",
+          "value": "morno"
+        },
+        {
+          "label": "Quente",
+          "value": "quente"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_08cj2ed",
+        "columns": null
+      },
+      "id": "Field_066trdj",
+      "key": "categoriazacao",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default"
+}

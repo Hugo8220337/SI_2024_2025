@@ -1,1 +1,72 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"0d4ab51"},"schemaVersion":17,"id":"ajustar-proposta-1aobkac","components":[{"text":"### Tarefa de ajuste da proposta","type":"text","id":"Heading_0","layout":{"row":"row_0","columns":null}},{"text":"##### Análise de objeções do cliente","type":"text","id":"Subheading_1","layout":{"row":"row_1","columns":null}},{"label":"Resumo das objeções do cliente","type":"textarea","id":"Textarea_2","validate":{"minLength":10,"maxLength":500,"required":true},"key":"resumoObjecoesCliente","layout":{"row":"row_2","columns":null}},{"label":"Ajustes na proposta com base em objeções","type":"textarea","id":"Textarea_3","validate":{"minLength":10,"maxLength":500,"required":true},"key":"ajustesNaProposta","layout":{"row":"row_3","columns":null}},{"label":"Enviar proposta ajustada","action":"submit","type":"button","id":"Button_6","layout":{"row":"row_6","columns":null}}],"generated":true,"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "ajustar-proposta-1aobkac",
+  "components": [
+    {
+      "text": "### Tarefa de ajuste da proposta",
+      "type": "text",
+      "id": "Heading_0",
+      "layout": {
+        "row": "row_0",
+        "columns": null
+      }
+    },
+    {
+      "text": "##### Análise de objeções do cliente",
+      "type": "text",
+      "id": "Subheading_1",
+      "layout": {
+        "row": "row_1",
+        "columns": null
+      }
+    },
+    {
+      "label": "Resumo das objeções do cliente",
+      "type": "textarea",
+      "id": "Textarea_2",
+      "validate": {
+        "minLength": 10,
+        "maxLength": 500,
+        "required": true
+      },
+      "key": "resumoObjecoesCliente",
+      "layout": {
+        "row": "row_2",
+        "columns": null
+      }
+    },
+    {
+      "label": "Ajustes na proposta com base em objeções",
+      "type": "textarea",
+      "id": "Textarea_3",
+      "validate": {
+        "minLength": 10,
+        "maxLength": 500,
+        "required": true
+      },
+      "key": "ajustesNaProposta",
+      "layout": {
+        "row": "row_3",
+        "columns": null
+      }
+    },
+    {
+      "label": "Enviar proposta ajustada",
+      "action": "submit",
+      "type": "button",
+      "id": "Button_6",
+      "layout": {
+        "row": "row_6",
+        "columns": null
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

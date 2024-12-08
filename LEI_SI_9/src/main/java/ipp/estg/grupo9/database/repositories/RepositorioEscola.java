@@ -24,6 +24,17 @@ public class RepositorioEscola implements IEscolaRepository {
     }
 
     @Override
+    public Escola findByNome(String nome) {
+        List<Escola> escolas = fileUtils.readObjectListFromFile();
+        for (Escola escola : escolas) {
+            if (escola.getNome().equals(nome)) {
+                return escola;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Escola add(Escola escola) throws CannotWritetoFileException {
         List<Escola> escolas = fileUtils.readObjectListFromFile();
         escolas.add(escola);

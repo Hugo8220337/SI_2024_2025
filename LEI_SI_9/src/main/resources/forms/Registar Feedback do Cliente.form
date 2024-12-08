@@ -1,1 +1,53 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"0d4ab51"},"schemaVersion":17,"id":"registar-feedback-do-cliente-0e91b5f","components":[{"text":"### Formulário de feedback do cliente","type":"text","id":"Heading_0","layout":{"row":"Row_185td8t"}},{"text":"##### Motivo para não comprar","type":"text","id":"Subheading_1","layout":{"row":"Row_0lbq10u"}},{"label":"Por favor, partilhe o seu motivo para não comprar a aplicação","type":"textarea","id":"Textarea_2","validate":{"minLength":10,"maxLength":500,"required":true},"key":"rasaoParaNaoComprar","layout":{"row":"Row_0ae7kkz"}},{"label":"Submeter","action":"submit","type":"button","id":"Button_8","layout":{"row":"Row_0ctbeju"}}],"generated":true,"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "registar-feedback-do-cliente-0e91b5f",
+  "components": [
+    {
+      "text": "### Formulário de feedback do cliente",
+      "type": "text",
+      "id": "Heading_0",
+      "layout": {
+        "row": "Row_185td8t"
+      }
+    },
+    {
+      "text": "##### Motivo para não comprar",
+      "type": "text",
+      "id": "Subheading_1",
+      "layout": {
+        "row": "Row_0lbq10u"
+      }
+    },
+    {
+      "label": "Por favor, partilhe o seu motivo para não comprar a aplicação",
+      "type": "textarea",
+      "id": "Textarea_2",
+      "validate": {
+        "minLength": 10,
+        "maxLength": 500,
+        "required": true
+      },
+      "key": "rasaoParaNaoComprar",
+      "layout": {
+        "row": "Row_0ae7kkz"
+      }
+    },
+    {
+      "label": "Submeter",
+      "action": "submit",
+      "type": "button",
+      "id": "Button_8",
+      "layout": {
+        "row": "Row_0ctbeju"
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface IEscolaRepository extends IRepository<Escola> {
     Escola findByEmail(String email);
+
+    Escola findByNome(String nome);
+
     Escola add(Escola escola) throws CannotWritetoFileException;
 
     List<Email> getEmails(int id);

@@ -1,1 +1,91 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"0d4ab51"},"schemaVersion":17,"id":"form-1doklow","components":[{"text":"# Análise de objeções","type":"text","layout":{"row":"Row_0md1rvm","columns":null},"id":"Field_09hs25j"},{"label":"Nome da Escola","type":"textfield","layout":{"row":"Row_09ti691","columns":null},"id":"Field_1k4rfg3","key":"nomeEscola","description":"Entidade que se está a vender o produto","validate":{"required":false},"disabled":false,"readonly":true},{"label":"Objeções","values":[{"label":"Preço","value":"preco"},{"label":"Necessidade","value":"necessidade"},{"label":"Confiança","value":"confianca"},{"label":"Concorrência","value":"concorrencia"},{"label":"Tempo","value":"tempo"},{"label":"Implementação","value":"implementacao"},{"label":"Outros","value":"outros"}],"type":"checklist","layout":{"row":"Row_0okcm16","columns":null},"id":"Field_0ag2yyi","key":"checklist_objecoes","validate":{"required":true}},{"label":"Descrição da objeção","type":"textarea","layout":{"row":"Row_1dfbvl0","columns":null},"id":"Field_1ftb6rr","key":"textarea_descricao_objecao"}],"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "form-1doklow",
+  "components": [
+    {
+      "text": "# Análise de objeções",
+      "type": "text",
+      "layout": {
+        "row": "Row_0md1rvm",
+        "columns": null
+      },
+      "id": "Field_09hs25j"
+    },
+    {
+      "label": "Nome da Escola",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_09ti691",
+        "columns": null
+      },
+      "id": "Field_1k4rfg3",
+      "key": "escola",
+      "description": "Entidade que se está a vender o produto",
+      "validate": {
+        "required": false
+      },
+      "disabled": false,
+      "readonly": true
+    },
+    {
+      "label": "Objeções",
+      "values": [
+        {
+          "label": "Preço",
+          "value": "preco"
+        },
+        {
+          "label": "Necessidade",
+          "value": "necessidade"
+        },
+        {
+          "label": "Confiança",
+          "value": "confianca"
+        },
+        {
+          "label": "Concorrência",
+          "value": "concorrencia"
+        },
+        {
+          "label": "Tempo",
+          "value": "tempo"
+        },
+        {
+          "label": "Implementação",
+          "value": "implementacao"
+        },
+        {
+          "label": "Outros",
+          "value": "outros"
+        }
+      ],
+      "type": "checklist",
+      "layout": {
+        "row": "Row_0okcm16",
+        "columns": null
+      },
+      "id": "Field_0ag2yyi",
+      "key": "checklist_objecoes",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Descrição da objeção",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_1dfbvl0",
+        "columns": null
+      },
+      "id": "Field_1ftb6rr",
+      "key": "textarea_descricao_objecao"
+    }
+  ],
+  "type": "default"
+}

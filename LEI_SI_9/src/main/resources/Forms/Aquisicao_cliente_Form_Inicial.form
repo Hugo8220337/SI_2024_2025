@@ -1,0 +1,143 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "form-0b4fc48",
+  "components": [
+    {
+      "label": "Escola",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_10uum8v",
+        "columns": null
+      },
+      "id": "Field_0751epl",
+      "key": "escola",
+      "description": "Insira o nome da escola ou do agrupamento de escolas",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Cidade",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1c6b367",
+        "columns": null
+      },
+      "id": "Field_0kqu6so",
+      "key": "cidade",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Morada",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1c6b367",
+        "columns": null
+      },
+      "id": "Field_1nhb7mp",
+      "key": "morada",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Código Postal",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1c6b367",
+        "columns": null
+      },
+      "id": "Field_1fmp6y9",
+      "key": "codigoPostal",
+      "description": "Insira oo código postal da escola ou em caso de agrupamento a escola sede",
+      "validate": {
+        "pattern": "^\\d{4}(-\\d{3})?$",
+        "required": true
+      }
+    },
+    {
+      "label": "Email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0r92sso",
+        "columns": null
+      },
+      "id": "Field_0icu7vo",
+      "key": "email",
+      "description": "Insira o email da escola",
+      "validate": {
+        "required": true,
+        "validationType": "email"
+      }
+    },
+    {
+      "label": "Telefone",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0r92sso",
+        "columns": null
+      },
+      "id": "Field_0bq2zog",
+      "key": "telefone",
+      "validate": {
+        "required": true,
+        "validationType": "phone"
+      }
+    },
+    {
+      "label": "Segmento",
+      "values": [
+        {
+          "label": "Público",
+          "value": "publico"
+        },
+        {
+          "label": "Privado",
+          "value": "privado"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_1xw2fih",
+        "columns": null
+      },
+      "id": "Field_1tsptyi",
+      "key": "segmento",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Detalhes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0pgasn5",
+        "columns": null
+      },
+      "id": "Field_0ou3ljm",
+      "key": "detalhes",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Histórico de Interações",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0pgasn5",
+        "columns": null
+      },
+      "id": "Field_1kxbefv",
+      "key": "historicoInteracoes"
+    }
+  ],
+  "type": "default"
+}

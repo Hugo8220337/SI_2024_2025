@@ -1,9 +1,11 @@
 package ipp.estg.grupo9.workers;
 
+import ch.qos.logback.core.net.server.Client;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.Variable;
 import ipp.estg.grupo9.database.models.Email;
+import ipp.estg.grupo9.database.models.Escola;
 import ipp.estg.grupo9.database.repositories.RepositorioEquipaIntegracao;
 import ipp.estg.grupo9.database.repositories.RepositorioEscola;
 import ipp.estg.grupo9.database.repositories.interfaces.IEquipaIntegracaoRepository;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @Component
-public class EncerramentoVendasWorker implements CommandLineRunner  {
+public class EncerramentoVendasWorker implements CommandLineRunner {
     private static final AppLogger LOGGER = AppLogger.getLogger(EncerramentoVendasWorker.class);
 
     @Autowired
@@ -40,27 +42,36 @@ public class EncerramentoVendasWorker implements CommandLineRunner  {
     }
 
     @JobWorker(type = "Notificar_Cliente_Nova_Proposta", autoComplete = true)
-    public void notificarClienteSobreReuniao(@Variable String nomeEscola, @Variable String email, @Variable String ajustesNaProposta) {
+    public HashMap<String, Object> notificarClienteSobreReuniao(@Variable String escola, @Variable String ajustesNaProposta) {
         LOGGER.info("Notificar cliente da nova proposta task");
 
-        String emailCliente = String.valueOf(email);
-        Email emailToSend = new Email(emailCliente, "Nova propsota", "Ajustes na proposta: " + ajustesNaProposta + "\n é pegar ou largar.");
-        int escolaId = escolaRepository.findByEmail(emailCliente).getId();
         try {
-            escolaRepository.sendEmail(escolaId, emailToSend);
-            LOGGER.info("Email enviado para a escola");
+            Escola cliente = escolaRepository.findByEmail(escola);
+            if (cliente == null) {
+                LOGGER.warn("Email não encontrado, não foi possível enviar email. Passou para a próxima tarefa para mostrar o funcionamento do sistema");
+            } else {
+                String emailCliente = cliente.getEmail();
+                Email emailToSend = new Email(emailCliente, "Nova propsota", "Ajustes na proposta: " + ajustesNaProposta + "\n é pegar ou largar.");
+                int escolaId = escolaRepository.findByEmail(emailCliente).getId();
+                escolaRepository.sendEmail(escolaId, emailToSend);
+                LOGGER.info("Email enviado para a escola");
+            }
         } catch (Exception e) {
             LOGGER.error("Não foi possível guardar a escola na base de dados");
+        } finally {
+            // Mandar mensagems para a receive task (mesmo quando não manda email envia mensagem para mostrar funcionamento)
+            zeebeClient.newPublishMessageCommand()
+                    .messageName("Message_Contact_cliente") // Nome da mensagem
+                    .correlationKey("sim")   // Correlation key
+                    .variables("{\"status\": \"Formulário enviado\"}") // Variáveis adicionais
+                    .send()
+                    .join();
         }
 
+        HashMap<String, Object> variables = new HashMap<>();
+        variables.put("clienteQuerComprar", "sim");
+        return variables;
 
-        // Mandar mensagems para a receive task
-        zeebeClient.newPublishMessageCommand()
-                .messageName("Message_Contact_cliente") // Nome da mensagem
-                .correlationKey("sim")   // Correlation key
-                .variables("{\"status\": \"Formulário enviado\"}") // Variáveis adicionais
-                .send()
-                .join();
     }
 
     // Simulate the form received

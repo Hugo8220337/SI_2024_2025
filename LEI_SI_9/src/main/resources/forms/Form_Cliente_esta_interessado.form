@@ -1,1 +1,67 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"f210d35"},"schemaVersion":17,"id":"contactar-cliente-por-telefone-0nytaei","components":[{"text":"# Cliente Está Interessado?","type":"text","layout":{"row":"Row_1jtcfk5","columns":null},"id":"Field_1xbiftz"},{"label":"Está interessado?","values":[{"label":"Sim","value":"sim"},{"label":"Não","value":"nao"}],"type":"radio","layout":{"row":"Row_0y9yarw","columns":null},"id":"Field_050qlby","key":"clienteInteressado","validate":{"required":true},"defaultValue":"sim"}],"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "contactar-cliente-por-telefone-0nytaei",
+  "components": [
+    {
+      "text": "# Cliente está interessado?",
+      "type": "text",
+      "layout": {
+        "row": "Row_1jtcfk5",
+        "columns": null
+      },
+      "id": "Field_1xbiftz"
+    },
+    {
+      "height": 60,
+      "type": "spacer",
+      "layout": {
+        "row": "Row_0ap9dso",
+        "columns": 6
+      },
+      "id": "Field_1supj2e"
+    },
+    {
+      "label": "",
+      "components": [
+        {
+          "label": "Está interessado?",
+          "values": [
+            {
+              "label": "Sim",
+              "value": "sim"
+            },
+            {
+              "label": "Não",
+              "value": "nao"
+            }
+          ],
+          "type": "radio",
+          "layout": {
+            "row": "Row_1u1z8ju",
+            "columns": null
+          },
+          "id": "Field_050qlby",
+          "key": "clienteInteressado",
+          "validate": {
+            "required": true
+          },
+          "defaultValue": "sim"
+        }
+      ],
+      "showOutline": true,
+      "type": "group",
+      "layout": {
+        "row": "Row_0ap9dso",
+        "columns": 4
+      },
+      "id": "Field_0yzhonr"
+    }
+  ],
+  "type": "default"
+}

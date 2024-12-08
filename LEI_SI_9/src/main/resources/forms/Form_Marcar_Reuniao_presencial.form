@@ -1,1 +1,157 @@
-{"executionPlatform":"Camunda Cloud","executionPlatformVersion":"8.6.0","exporter":{"name":"Camunda Web Modeler","version":"0d4ab51"},"schemaVersion":17,"id":"form-1auju1y","components":[{"text":"### Formulário de Agendamento de Reuniões","type":"text","id":"Heading_0","layout":{"row":"row_0","columns":null}},{"text":"##### Informação do Cliente","type":"text","id":"Subheading_1","layout":{"row":"row_1","columns":null}},{"label":"Nome da Escola","type":"textfield","id":"Textfield_2","validate":{"minLength":2,"maxLength":50,"required":true},"key":"nomeEscola","description":"Insira o nome da escola ou do agrupamento","layout":{"row":"row_2","columns":null}},{"label":"Email da escola","type":"textfield","id":"Textfield_4","validate":{"minLength":5,"maxLength":100,"required":true},"key":"emailCliente","description":"em caso de agrupamento, insira o email da esocla sede","layout":{"row":"row_2","columns":null}},{"text":"##### Detalhes da reunião","type":"text","id":"Subheading_5","layout":{"row":"row_3","columns":null}},{"subtype":"date","type":"datetime","id":"Date_6","dateLabel":"Data da Reunião","validate":{"required":true},"key":"dataReuniao","description":"Insira a data para a reunião","layout":{"row":"row_4","columns":null}},{"subtype":"time","type":"datetime","id":"Time_7","timeLabel":"Hora da reunião","validate":{"required":true},"key":"horaReuniao","description":"Selecione a hora dareunião","layout":{"row":"row_4","columns":null},"timeInterval":15,"use24h":true},{"label":"Tipo de Reunião","values":[{"value":"presencial","label":"Presencial"},{"value":"online","label":"Online"}],"type":"select","id":"Select_8","validate":{"required":true},"key":"tipoReuniao","description":"Insira o tipo da reunião","layout":{"row":"row_4","columns":null},"defaultValue":"presencial"},{"text":"##### Additional Information Section","type":"text","id":"Subheading_9","layout":{"row":"row_5","columns":null}},{"label":"Notas Adicionais","type":"textarea","id":"Textarea_10","validate":{"minLength":0,"maxLength":500,"required":false},"key":"notasAdicionais","description":"Notas adicionais ou comentários","layout":{"row":"row_6","columns":null}}],"generated":true,"type":"default"}
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "0d4ab51"
+  },
+  "schemaVersion": 17,
+  "id": "form-1auju1y",
+  "components": [
+    {
+      "text": "### Formulário de Agendamento de Reuniões",
+      "type": "text",
+      "id": "Heading_0",
+      "layout": {
+        "row": "row_0",
+        "columns": null
+      }
+    },
+    {
+      "text": "##### Informação do Cliente",
+      "type": "text",
+      "id": "Subheading_1",
+      "layout": {
+        "row": "row_1",
+        "columns": null
+      }
+    },
+    {
+      "label": "Nome da Escola",
+      "type": "textfield",
+      "id": "Textfield_2",
+      "validate": {
+        "minLength": 2,
+        "maxLength": 50,
+        "required": true
+      },
+      "key": "escola",
+      "description": "Insira o nome da escola ou do agrupamento",
+      "layout": {
+        "row": "row_2",
+        "columns": null
+      },
+      "readonly": true
+    },
+    {
+      "label": "Email da escola",
+      "type": "textfield",
+      "id": "Textfield_4",
+      "validate": {
+        "minLength": 5,
+        "maxLength": 100,
+        "required": true
+      },
+      "key": "email",
+      "description": "em caso de agrupamento, insira o email da esocla sede",
+      "layout": {
+        "row": "row_2",
+        "columns": null
+      },
+      "readonly": true
+    },
+    {
+      "text": "##### Detalhes da reunião",
+      "type": "text",
+      "id": "Subheading_5",
+      "layout": {
+        "row": "row_3",
+        "columns": null
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Date_6",
+      "dateLabel": "Data da Reunião",
+      "validate": {
+        "required": true
+      },
+      "key": "dataReuniao",
+      "description": "Insira a data para a reunião",
+      "layout": {
+        "row": "row_4",
+        "columns": null
+      }
+    },
+    {
+      "subtype": "time",
+      "type": "datetime",
+      "id": "Time_7",
+      "timeLabel": "Hora da reunião",
+      "validate": {
+        "required": true
+      },
+      "key": "horaReuniao",
+      "description": "Selecione a hora dareunião",
+      "layout": {
+        "row": "row_4",
+        "columns": null
+      },
+      "timeInterval": 15,
+      "use24h": true
+    },
+    {
+      "label": "Tipo de Reunião",
+      "values": [
+        {
+          "value": "presencial",
+          "label": "Presencial"
+        },
+        {
+          "value": "online",
+          "label": "Online"
+        }
+      ],
+      "type": "select",
+      "id": "Select_8",
+      "validate": {
+        "required": true
+      },
+      "key": "tipoReuniao",
+      "description": "Insira o tipo da reunião",
+      "layout": {
+        "row": "row_4",
+        "columns": null
+      },
+      "defaultValue": "presencial"
+    },
+    {
+      "text": "##### Additional Information Section",
+      "type": "text",
+      "id": "Subheading_9",
+      "layout": {
+        "row": "row_5",
+        "columns": null
+      }
+    },
+    {
+      "label": "Notas Adicionais",
+      "type": "textarea",
+      "id": "Textarea_10",
+      "validate": {
+        "minLength": 0,
+        "maxLength": 500,
+        "required": false
+      },
+      "key": "notasAdicionais",
+      "description": "Notas adicionais ou comentários",
+      "layout": {
+        "row": "row_6",
+        "columns": null
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

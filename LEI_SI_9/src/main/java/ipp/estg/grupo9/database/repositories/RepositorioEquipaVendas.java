@@ -7,6 +7,7 @@ import ipp.estg.grupo9.database.repositories.exceptions.CannotWritetoFileExcepti
 import ipp.estg.grupo9.database.repositories.interfaces.IEquipaVendasRepository;
 import ipp.estg.grupo9.utils.FileUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioEquipaVendas implements IEquipaVendasRepository {
@@ -15,6 +16,11 @@ public class RepositorioEquipaVendas implements IEquipaVendasRepository {
     @Override
     public List<Email> getEmails() {
         EquipaIntegracao equipaIntegracao = fileUtils.readObjectFromFile();
+
+        if(equipaIntegracao == null) {
+            return new ArrayList<>(); // returns an empty list
+        }
+
         return equipaIntegracao.getEmails();
     }
 
