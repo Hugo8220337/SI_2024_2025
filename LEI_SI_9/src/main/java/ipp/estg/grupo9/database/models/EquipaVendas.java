@@ -1,16 +1,17 @@
-package ipp.estg.grupo9.models;
+package ipp.estg.grupo9.database.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EquipaIntegracao {
+public class EquipaVendas implements Serializable {
     private List<Email> emails;
 
-    public EquipaIntegracao(List<Email> emails) {
+    public EquipaVendas(List<Email> emails) {
         this.emails = emails;
     }
 
-    public EquipaIntegracao() {
+    public EquipaVendas() {
         this.emails = new ArrayList<>();
     }
 
@@ -19,11 +20,11 @@ public class EquipaIntegracao {
         return emails;
     }
 
-    public void sendEmail(Email email){
+    public void sendEmail(Email email) {
         this.emails.add(email);
     }
 
-    public void removeEmail(Email email){
+    public void removeEmail(Email email) {
         this.emails.remove(email);
     }
 }

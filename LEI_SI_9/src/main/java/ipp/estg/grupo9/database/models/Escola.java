@@ -1,9 +1,10 @@
-package ipp.estg.grupo9.models;
+package ipp.estg.grupo9.database.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Escola {
+public class Escola implements Serializable {
     private int id;
 
     private String escola;
@@ -15,7 +16,7 @@ public class Escola {
     private String segmento;
     private String historicoInteracoes;
     private String codigoPostal;
-    private List<Email> emails;
+    private final List<Email> emails;
 
 
     private static int count = 0;

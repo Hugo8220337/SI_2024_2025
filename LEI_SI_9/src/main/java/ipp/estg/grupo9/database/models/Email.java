@@ -1,6 +1,8 @@
-package ipp.estg.grupo9.models;
+package ipp.estg.grupo9.database.models;
 
-public class Email {
+import java.io.Serializable;
+
+public class Email implements Serializable {
     private String email;
     private String subject;
     private String body;

@@ -1,32 +1,44 @@
-package ipp.estg.grupo9;
+package ipp.estg.grupo9.workers;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.Variable;
-import ipp.estg.grupo9.models.Email;
-import ipp.estg.grupo9.models.EquipaVendas;
-import ipp.estg.grupo9.models.Escola;
+import ipp.estg.grupo9.database.models.Email;
+import ipp.estg.grupo9.database.models.Escola;
+import ipp.estg.grupo9.database.repositories.RepositorioEquipaVendas;
+import ipp.estg.grupo9.database.repositories.RepositorioEscola;
+import ipp.estg.grupo9.database.repositories.interfaces.IEquipaVendasRepository;
+import ipp.estg.grupo9.database.repositories.interfaces.IEscolaRepository;
+import ipp.estg.grupo9.utils.AppLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Component
-public class CaptarClienteWorker implements CommandLineRunner {
+public class AtrairClienteWorker implements CommandLineRunner {
+    private static final AppLogger LOGGER = AppLogger.getLogger(AtrairClienteWorker.class);
+    private static final Logger log = LoggerFactory.getLogger(AtrairClienteWorker.class);
+
     @Autowired
     private ZeebeClient zeebeClient;
 
-    private final ArrayList<Escola> escolas = new ArrayList<>();
-    private final EquipaVendas equipaVendas = new EquipaVendas();
+    private final IEscolaRepository escolaRepository = new RepositorioEscola();
+    private final IEquipaVendasRepository equipaVendasRepository = new RepositorioEquipaVendas();
 
     @JobWorker(type = "DB_Import", autoComplete = true)
     public HashMap<String, Object> importarDadosPotencialCliente(@Variable String escola, @Variable String morada, @Variable String email, @Variable String telefone, @Variable String cidade, @Variable String detalhes, @Variable String segmento, @Variable String historicoInteracoes, @Variable String codigoPostal) {
-        System.out.println("Add client service task");
+        LOGGER.info("Importar cleinte de base de dados de leads começou");
 
         Escola cliente = new Escola(escola, morada, email, telefone, cidade, detalhes, segmento, historicoInteracoes, codigoPostal);
-        escolas.add(cliente);
+        try {
+            escolaRepository.add(cliente);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível guardar o cliente na base de dados");
+        }
 
         String id = String.valueOf(cliente.getId());
         String escolaCliente = String.valueOf(escola);
@@ -60,10 +72,15 @@ public class CaptarClienteWorker implements CommandLineRunner {
 
     @JobWorker(type = "DB_Save", autoComplete = true)
     public HashMap<String, Object> guardarLeadParaCampanhasFuturas(@Variable String escola, @Variable String morada, @Variable String email, @Variable String telefone, @Variable String cidade, @Variable String detalhes, @Variable String segmento, @Variable String historicoInteracoes, @Variable String codigoPostal) {
-        System.out.println("Save client to future campains service task");
+        LOGGER.info("Guardar cliente para campanhas futuras começou");
 
         Escola cliente = new Escola(escola, morada, email, telefone, cidade, detalhes, segmento, historicoInteracoes, codigoPostal);
-        escolas.add(cliente);
+        ;
+        try {
+            escolaRepository.add(cliente);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível guardar o cliente na base de dados");
+        }
 
         String id = String.valueOf(cliente.getId());
         String escolaCliente = String.valueOf(escola);
@@ -95,53 +112,54 @@ public class CaptarClienteWorker implements CommandLineRunner {
     }
 
     @JobWorker(type = "Send_Email", autoComplete = true)
-    public void enviarEmailsPersonalizados(@Variable int ID, @Variable String escola, @Variable String email) {
-        System.out.println("Send Email service task");
+    public void enviarEmailsPersonalizados(@Variable int id, @Variable String escola, @Variable String email) {
+        LOGGER.info("Enviar email personalizado começou");
 
         String escolaCliente = String.valueOf(escola);
         String emailCliente = String.valueOf(email);
 
 
         Email emailToSend = new Email(emailCliente, "Já ouviu falar do Luno", "Olá, " + escolaCliente + " já ouviu falar do Luno? é muito giro, compre por favor");
-        escolas.forEach(escola1 -> {
-            if (escola1.getId() == ID) {
-                escola1.getEmails().add(emailToSend);
-            }
-        });
+        try {
+            escolaRepository.sendEmail(id, emailToSend);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível enviar o email");
+        }
     }
 
+
     @JobWorker(type = "Send_Invite", autoComplete = true)
-    public void convidarClienteParaWebinal(@Variable int ID, @Variable String escola, @Variable String email) {
-        System.out.println("Invite client to Webinal service task");
+    public void convidarClienteParaWebinal(@Variable int id, @Variable String escola, @Variable String email) {
+        LOGGER.info("Convidar cliente para webinal começou");
 
         String escolaCliente = String.valueOf(escola);
         String emailCliente = String.valueOf(email);
 
 
         Email emailToSend = new Email(emailCliente, "Já ouviu falar do Luno", "Olá, " + escolaCliente + " venha ao nosso webinal, é muito giro, compre por favor");
-        escolas.forEach(escola1 -> {
-            if (escola1.getId() == ID) {
-                escola1.getEmails().add(emailToSend);
-            }
-        });
+        try {
+            escolaRepository.sendEmail(id, emailToSend);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível enviar o email");
+        }
     }
 
     @JobWorker(type = "SendForm", autoComplete = true)
-    public void enviarFormulario(@Variable String escola, @Variable String email) {
-        System.out.println("Send Form service task");
+    public void enviarFormulario(@Variable int id, @Variable String escola, @Variable String email) {
+        LOGGER.info("Enviar formulário começou");
 
         // simular envio de formulário por email
-        String mensagemFormulario = "Olá, " + escola +
-                " porque nos detesta? O que nós lhe fizemos? Por favor, preencha este formulário.";
-        escolas.forEach(escola1 -> {
-            if (escola1.getNome().equals(escola)) {
-                escola1.getEmails().add(new Email(email, "Formulário de satisfação", mensagemFormulario));
-            }
-        });
+        Email mensagemFormulario = new Email(email, "Formulário de feedback", "Olá, " + escola +
+                " porque nos detesta? O que nós lhe fizemos? Por favor, preencha este formulário.");
+        try {
+            escolaRepository.sendEmail(id, mensagemFormulario);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível enviar o email com o formulário");
+        }
 
 
         // Simular envio do formulário por email
-        System.out.println("Formulario enviado para: " + email);
+        LOGGER.info("Formulário enviado para: " + email);
 
         // Mandar mensagems para a receive task
         zeebeClient.newPublishMessageCommand()
@@ -154,17 +172,21 @@ public class CaptarClienteWorker implements CommandLineRunner {
 
     @JobWorker(type = "Notificar_Equipa_vendas", autoComplete = true)
     public void notificarEquipaVendas(@Variable String escola, @Variable String email, @Variable String tipoReuniao, @Variable String dataReuniao, @Variable String horaReuniao) {
-        System.out.println("Notificar Equipa de Vendas");
+        LOGGER.info("Notificar equipa de vendas começou");
 
         Email emailToSend = new Email(email, "Novo cliente", "Olá, " + escola + " é um novo cliente, foi marcada uma reunião " + tipoReuniao + " para a data " + dataReuniao + " às " + horaReuniao);
-        equipaVendas.sendEmail(emailToSend);
+        try {
+            equipaVendasRepository.sendEmail(emailToSend);
+        } catch (Exception e) {
+            LOGGER.error("Não foi possível enviar o email para a equipa de vendas");
+        }
     }
 
 
     // Simulate the form received
     @Override
     public void run(String... args) {
-        System.out.println("CaptarClienteWorker is running");
+        LOGGER.info("Captar ClienteWorker está a executar");
 
         final HashMap<String, Object> variables = new HashMap<>();
         variables.put("clienteInteressado", "sim");
