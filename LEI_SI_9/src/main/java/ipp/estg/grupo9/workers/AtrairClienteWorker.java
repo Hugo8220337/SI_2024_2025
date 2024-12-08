@@ -21,7 +21,6 @@ import java.util.HashMap;
 @Component
 public class AtrairClienteWorker implements CommandLineRunner {
     private static final AppLogger LOGGER = AppLogger.getLogger(AtrairClienteWorker.class);
-    private static final Logger log = LoggerFactory.getLogger(AtrairClienteWorker.class);
 
     @Autowired
     private ZeebeClient zeebeClient;
@@ -36,6 +35,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         Escola cliente = new Escola(escola, morada, email, telefone, cidade, detalhes, segmento, historicoInteracoes, codigoPostal);
         try {
             escolaRepository.add(cliente);
+            LOGGER.info("Cliente guardado na base de dados");
         } catch (Exception e) {
             LOGGER.error("Não foi possível guardar o cliente na base de dados");
         }
@@ -52,7 +52,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         String codigoPostalCliente = String.valueOf(codigoPostal);
 
         HashMap<String, Object> variables = new HashMap<>();
-        variables.put("Id", id);
+        variables.put("id", id);
         variables.put("escola", escolaCliente);
         variables.put("morada", moradaCliente);
         variables.put("email", emailCliente);
@@ -78,6 +78,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         ;
         try {
             escolaRepository.add(cliente);
+            LOGGER.info("Cliente guardado na base de dados");
         } catch (Exception e) {
             LOGGER.error("Não foi possível guardar o cliente na base de dados");
         }
@@ -122,6 +123,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         Email emailToSend = new Email(emailCliente, "Já ouviu falar do Luno", "Olá, " + escolaCliente + " já ouviu falar do Luno? é muito giro, compre por favor");
         try {
             escolaRepository.sendEmail(id, emailToSend);
+            LOGGER.info("Email enviado para: " + emailCliente);
         } catch (Exception e) {
             LOGGER.error("Não foi possível enviar o email");
         }
@@ -139,6 +141,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         Email emailToSend = new Email(emailCliente, "Já ouviu falar do Luno", "Olá, " + escolaCliente + " venha ao nosso webinal, é muito giro, compre por favor");
         try {
             escolaRepository.sendEmail(id, emailToSend);
+            LOGGER.info("Email enviado para: " + emailCliente);
         } catch (Exception e) {
             LOGGER.error("Não foi possível enviar o email");
         }
@@ -153,13 +156,10 @@ public class AtrairClienteWorker implements CommandLineRunner {
                 " porque nos detesta? O que nós lhe fizemos? Por favor, preencha este formulário.");
         try {
             escolaRepository.sendEmail(id, mensagemFormulario);
+            LOGGER.info("Formulário enviado para: " + email);
         } catch (Exception e) {
             LOGGER.error("Não foi possível enviar o email com o formulário");
         }
-
-
-        // Simular envio do formulário por email
-        LOGGER.info("Formulário enviado para: " + email);
 
         // Mandar mensagems para a receive task
         zeebeClient.newPublishMessageCommand()
@@ -177,6 +177,7 @@ public class AtrairClienteWorker implements CommandLineRunner {
         Email emailToSend = new Email(email, "Novo cliente", "Olá, " + escola + " é um novo cliente, foi marcada uma reunião " + tipoReuniao + " para a data " + dataReuniao + " às " + horaReuniao);
         try {
             equipaVendasRepository.sendEmail(emailToSend);
+            LOGGER.info("Email enviado para a equipa de vendas");
         } catch (Exception e) {
             LOGGER.error("Não foi possível enviar o email para a equipa de vendas");
         }

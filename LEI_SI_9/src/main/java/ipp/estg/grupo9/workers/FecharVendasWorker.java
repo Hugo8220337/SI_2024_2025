@@ -4,8 +4,6 @@ import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.Variable;
 import ipp.estg.grupo9.database.models.Email;
-import ipp.estg.grupo9.database.models.EquipaIntegracao;
-import ipp.estg.grupo9.database.models.Escola;
 import ipp.estg.grupo9.database.repositories.RepositorioEquipaIntegracao;
 import ipp.estg.grupo9.database.repositories.RepositorioEscola;
 import ipp.estg.grupo9.database.repositories.interfaces.IEquipaIntegracaoRepository;
@@ -35,6 +33,7 @@ public class FecharVendasWorker implements CommandLineRunner  {
         Email emailToSend = new Email("integracao@integracao.com", "Nova escola para integracao", "Nova escola para integracao é a " + emailCliente);
         try {
             equipaVendasRepository.sendEmail(emailToSend);
+            LOGGER.info("Email enviado para a equipa de integração");
         } catch (Exception e) {
             LOGGER.error("Não foi possível guardar a escola na base de dados");
         }
@@ -49,12 +48,11 @@ public class FecharVendasWorker implements CommandLineRunner  {
         int escolaId = escolaRepository.findByEmail(emailCliente).getId();
         try {
             escolaRepository.sendEmail(escolaId, emailToSend);
+            LOGGER.info("Email enviado para a escola");
         } catch (Exception e) {
             LOGGER.error("Não foi possível guardar a escola na base de dados");
         }
 
-        // Simular envio do formulário por email
-        LOGGER.info("Formulário enviado para: " + email);
 
         // Mandar mensagems para a receive task
         zeebeClient.newPublishMessageCommand()
