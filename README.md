@@ -6,6 +6,8 @@
   <img src="http://img.shields.io/static/v1?style=for-the-badge&label=Grade&message=13.2&color=sucess"/>
 </p>
 
+<p>Planeamento de um negócio de uma plataforma de gestão de escolas, e implementação dos principais processos no Camunda </p>
+
 ---
 
 <h2>Authors</h2>
